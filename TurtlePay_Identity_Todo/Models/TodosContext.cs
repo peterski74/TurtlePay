@@ -7,6 +7,7 @@
         // DEVELOPMENT ONLY: initialize the database
         static TodosContext()
         {
+            //Added to branch
             //Database.SetInitializer(new TodoDatabaseInitializer());
             //Database.SetInitializer();
         }
