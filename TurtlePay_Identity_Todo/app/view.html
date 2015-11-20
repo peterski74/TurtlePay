@@ -1,10 +1,11 @@
 ﻿<div data-ng-controller="TodoController as vm">
     <header>
-        <h1>Breeze Todos</h1><h2>with AngularJs</h2>
+        
         <form data-ng-submit="vm.addItem()">
             <input type="text"
                    data-ng-model="vm.newTodoDescription"
-                   placeholder="What needs to be done?" />
+                   placeholder="What needs to be done?"
+                 /> <!--ng-blur="vm.addItem()"-->
         </form>
     </header>
     <section>
