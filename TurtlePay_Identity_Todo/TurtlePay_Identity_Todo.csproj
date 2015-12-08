@@ -295,6 +295,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="mark\HtmlPage1.html" />
+    <Content Include="Scripts\adminlte\app.js" />
+    <Content Include="Scripts\adminlte\app.min.js" />
+    <Content Include="Scripts\adminlte\dashboard.js" />
+    <Content Include="Scripts\adminlte\dashboard2.js" />
+    <Content Include="Scripts\adminlte\demo.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
@@ -390,7 +395,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>65207</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
