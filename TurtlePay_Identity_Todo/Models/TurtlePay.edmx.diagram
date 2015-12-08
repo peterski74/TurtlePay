@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="296c5d3ea02d4a299b49b1d02e333749" Name="Diagram1">
+        <EntityTypeShape EntityType="turtlepayModel.Group" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="turtlepayModel.GroupType" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="turtlepayModel.Organisation" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="turtlepayModel.FK_Groups_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="turtlepayModel.FK_Groups_GroupTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="turtlepayModel.FK_Groups_Organisations" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
