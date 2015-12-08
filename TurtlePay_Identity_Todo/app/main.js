@@ -26,6 +26,21 @@
                 }
             })
 
+            // ORGANISATION STATES AND NESTED VIEWS ========================================
+            .state('organisation', {
+                url: '/organisation',
+                templateUrl: 'app/organisation/organisation.view.html',
+                controller: 'OrganisationCtrl as organisations',
+                resolve: {
+                    organisation: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: 'organisation',
+                            files: ['app/organisation/organisation.ctrl.js']
+                        });
+                    }]
+                }
+            })
+
 
             // GROUPS STATES AND NESTED VIEWS ========================================
             .state('groups', {

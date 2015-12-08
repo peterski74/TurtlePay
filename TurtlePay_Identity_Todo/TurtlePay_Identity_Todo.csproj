@@ -253,6 +253,8 @@
     <Content Include="app\main.js" />
     <Content Include="app\members\members.ctrl.js" />
     <Content Include="app\members\members.view.html" />
+    <Content Include="app\organisation\organisation.ctrl.js" />
+    <Content Include="app\organisation\organisation.view.html" />
     <Content Include="app\settings\settings.ctrl.js" />
     <Content Include="app\settings\settings.view.html" />
     <Content Include="app\view.html" />
