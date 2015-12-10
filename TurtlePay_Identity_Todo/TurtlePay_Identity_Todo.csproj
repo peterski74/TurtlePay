@@ -289,6 +289,9 @@
     <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\imgs\user2-160x160.jpg" />
+    <Content Include="Content\imgs\user3-128x128.jpg" />
+    <Content Include="Content\imgs\user4-128x128.jpg" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\skins\skin-black-light.css" />
     <Content Include="Content\skins\skin-black-light.min.css" />
