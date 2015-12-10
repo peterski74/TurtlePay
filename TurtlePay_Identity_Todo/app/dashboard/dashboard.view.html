@@ -1,5 +1,5 @@
 ﻿
-    Dashboard - {{test}}<br /><br />
+ <!--   Dashboard - {{test}}<br /><br />
 
     Groups<br /><br />
     <strong>Name: <br />-{{groupsList.groupName}}</strong> <br /><br />
@@ -7,5 +7,59 @@
     <div ng-repeat="member in groupsList.groupMembers">
         <span>-{{member.name}}</span>
 
+    </div>-->
+
+
+
+ 
+<div ng-repeat="group in groupsList">
+
+    <div class="col-md-4">
+    <div class="box box-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua-active">
+                  <h3 class="widget-user-username">{{group.groupName}}</h3>
+                  <h5 class="widget-user-desc">{{group.description}}</h5>
+                    <strong>Event Date:</strong> {{group.firstDayOfActivity | date:'medium'}}
+                </div>
+                <div class="widget-user-image">
+                  <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header">
+                            <span title="Number attending">{{group.groupMembersCount}}</span> </h5>
+                        <span class="description-text">ATTENDING</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                    
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header"><span title="Max Allowed">{{group.groupMaxSize}}</span></h5>
+                        <span class="description-text">MAX</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                      <div class="col-sm-4">
+                      <div class="description-block">
+                        <h5 class="description-header">{{group.groupMembersPaid}}</h5>
+                        <span class="description-text">PAID</span>
+                      </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div>
+                <!--<div class="box-footer box-comments">
+                  <div class="box-comment">
+                    <div class="comment-text">
+                      <span class="username">
+                        Event Date:
+                      </span>
+                      {{group.firstDayOfActivity}}
+                    </div>
+                  </div>
+                </div>
+              </div>-->
     </div>
+</div>
 

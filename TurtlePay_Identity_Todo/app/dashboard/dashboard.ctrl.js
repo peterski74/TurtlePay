@@ -29,7 +29,7 @@
             getGroups();
 
             function getSucceeded(data) {
-                $scope.groupsList = data[0];
+                $scope.groupsList = data;
                 $scope.loading = false;
             }
 
