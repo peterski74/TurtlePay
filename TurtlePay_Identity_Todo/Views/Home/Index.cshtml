@@ -4,7 +4,9 @@
 
 @if (Request.IsAuthenticated)
 {
-<div id="applicationHost" data-ng-app="app" data-ng-include="'app/view.html'"></div>
+<!--<div id="applicationHost" data-ng-include="'app/view.html'"></div>-->
+<div data-ui-view=""></div>
+
 }
 <!--<div class="jumbotron">
     <h1>ASP.NET</h1>
