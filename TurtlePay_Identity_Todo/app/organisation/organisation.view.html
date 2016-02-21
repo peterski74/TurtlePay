@@ -1,8 +1,45 @@
 ﻿
 
-   Organisation 
 
-<div ng-repeat="organisation in app.organisation">
-    {{organisation.organisationName}}
+
+
+<div style="background-color:white">
+    <form name="OrganisationForm" ng-controller="OrganisationCtrl as orgCtrl" ng-submit="OrganisationForm.$valid" novalidate>
+
+        <h3>Organisation</h3>
+
+        <p>Total Items: {{TotalItems}}</p>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="OrgName" ng-model="Org.OrgName" />
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="text" class="form-control" id="OrgAddress" ng-model="Org.OrgAddress" required />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" ng-click="addOrganisation(Org)" />
+
+
+            <!--<button class="btn" ng-click="addOrganisation()"><span></span>Add</button>-->
+            <!--<input type="submit" ng-click="update(user)" value="Save" />-->
+
+        </div>
+    </form>
+
+
+    <!--<div ng-controller="OrganisationCtrl">
+
+        <ul class="list-unstyled">
+            <li  ng-repeat="Org in Organisations">
+                {{Org.OrgName}}
+            </li>
+        </ul>
+
+
+    </div>-->
+
 
 </div>

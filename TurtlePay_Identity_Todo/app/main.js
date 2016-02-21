@@ -30,7 +30,7 @@
             .state('organisation', {
                 url: '/organisation',
                 templateUrl: 'app/organisation/organisation.view.html',
-                controller: 'OrganisationCtrl as organisations',
+                controller: 'OrganisationCtrl',
                 resolve: {
                     organisation: ['$ocLazyLoad', function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
