@@ -9,6 +9,7 @@
 //angular.module('app')
 angular.module("organisation", [])
 
+
 .controller('OrganisationCtrl', ['$q', '$scope', '$http', '$timeout', 'dataservice', 'logger', function ($q, $scope, $http, $timeout, dataservice, logger) {
     // The controller's API to which the view binds
     //var vm = this;
