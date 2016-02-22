@@ -1,6 +1,8 @@
 ﻿/*
 Author Ansar Javed
 Date 19/02/2016
+
+more added from per PT
 */
 /* TodoController - the controller for the "todo view" 
  * relies on Angular injector to provide:
