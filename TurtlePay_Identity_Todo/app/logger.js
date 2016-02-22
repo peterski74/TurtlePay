@@ -13,6 +13,7 @@
         toastr.options.timeOut = 2000; // 2 second toast timeout
         toastr.options.positionClass = 'toast-bottom-right';
 
+
         var logger = {
             error: error,
             info: info,
