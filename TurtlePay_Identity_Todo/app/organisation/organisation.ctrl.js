@@ -1,4 +1,8 @@
-﻿/* TodoController - the controller for the "todo view" 
+﻿/*
+Author Ansar Javed
+Date 19/02/2016
+*/
+/* TodoController - the controller for the "todo view" 
  * relies on Angular injector to provide:
  *     $q - promises manager
  *     $timeout - Angular equivalent of 'setTimeout'
