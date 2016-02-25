@@ -1,9 +1,45 @@
 ﻿
 
-Groups {{test}}<br /><br />
-<strong>Name: <br />-{{groupsList.odata.metadata}}</strong> <br /><br />
-<strong>Members:</strong>
-<div ng-repeat="Group in groupsList">
-    <span>-{{Group.GroupName}}</span>
+
+
+<div style="background-color:white">
+    <form name="GroupForm" ng-controller="GroupsCtrl as grpCtrl" ng-submit="GroupForm.$valid" novalidate>
+
+        <h3>Add Group</h3>
+
+        <p>Total Items: {{TotalItems}}</p>
+
+        <div class="form-group">
+            <label for="GrpName">Group Name</label>
+            <input type="text" class="form-control" id="GrpName" ng-model="group.GrpName" />
+
+        </div>
+        
+
+
+        <div class="form-group">
+
+            <input type="submit" value="Submit" ng-click="addGroup(group)" />
+
+
+
+            <!--<button class="btn" ng-click="addOrganisation()"><span></span>Add</button>-->
+            <!--<input type="submit" ng-click="update(user)" value="Save" />-->
+
+        </div>
+    </form>
+
+
+    <!--<div ng-controller="OrganisationCtrl">
+
+        <ul class="list-unstyled">
+            <li  ng-repeat="Org in Organisations">
+                {{group.OrgName}}
+            </li>
+        </ul>
+
+
+    </div>-->
+
 
 </div>

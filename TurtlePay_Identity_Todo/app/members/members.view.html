@@ -1,3 +1,58 @@
 ﻿
-    Members - {{test}}
 
+
+<div style="background-color:white">
+    <form name="MemberForm" ng-controller="MembersCtrl as mbrCtrl" ng-submit="MemberForm.$valid" novalidate>
+
+        <h3>Add Member</h3>
+
+        <p>Total Member: {{TotalMembers}}</p>
+
+        <div class="form-group">
+            <label for="MemberGivenName">Given Name</label>
+            <input type="text" class="form-control" id="MemberGivenName" ng-model="member.MemberGivenName" />
+
+        </div>
+        <div class="form-group">
+            <label for="MemberFamilyName"> Family Name  </label>
+            <input type="text" class="form-control" id="MemberFamilyName" ng-model="member.MemberFamilyName" />
+
+        </div>
+        <div class="form-group">
+            <label for="MemberEmail"> Email</label>
+            <input type="email" class="form-control" id="MemberEmail" ng-model="member.MemberEmail" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="MemberMobile"> Mobile</label>
+            <input type="number" class="form-control" id="MemberMobile" ng-model="member.MemberMobile" />
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="submit" value="Submit" ng-click="addMember(member)" />
+
+
+
+            <!--<button class="btn" ng-click="addOrganisation()"><span></span>Add</button>-->
+            <!--<input type="submit" ng-click="update(user)" value="Save" />-->
+
+        </div>
+    </form>
+
+
+    <!--<div ng-controller="OrganisationCtrl">
+
+        <ul class="list-unstyled">
+            <li  ng-repeat="Org in Organisations">
+                {{group.OrgName}}
+            </li>
+        </ul>
+
+
+    </div>-->
+
+
+</div>
