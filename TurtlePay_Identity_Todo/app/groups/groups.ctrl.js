@@ -13,7 +13,7 @@ Date 19/02/2016
  */
 
 //angular.module('app')
-angular.module("groups", ['ngGrid'])
+angular.module("groups", [])
 
 
 .controller('GroupsCtrl', ['$q', '$scope', '$http', '$timeout', 'dataservice', 'logger', function ($q, $scope, $http, $timeout, dataservice, logger) {
@@ -33,11 +33,11 @@ angular.module("groups", ['ngGrid'])
     function getGroups(forceRefresh) {
         $http({
             method: 'GET',
-            url: 'http://private-cff96-organisation1.apiary-mock.com/organisation'
+            url: 'http://private-75243-groups14.apiary-mock.com/groups'
         }).success(function (_data) {
             getSucceeded(_data);
 
-            logger.info("Fetched orgs");
+           // logger.info("Fetched orgs");
 
         }).error(function (data, status) {
             console.log("Error status : " + status);
@@ -57,17 +57,19 @@ angular.module("groups", ['ngGrid'])
 
     $scope.addGroup = function (group) {
 
-        alert('adding group')
+       // alert('adding group')
 
-        $scope.groupsList.push(this.group);
+        $scope.groupsList.push(group);
+        $scope.TotalItems = $scope.groupsList.length;
 
-
-
+        //$scope.$apply();
+        
+        
         ////saving to database
         //$http.post('/odata/ProductReviews', this.review).success(function (data, status, headers) {
 
         //});
-        ////this.Org = {};
+        this.group = {};
     };
 
     function TotalItems() {

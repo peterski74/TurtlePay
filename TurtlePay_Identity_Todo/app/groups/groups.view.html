@@ -1,17 +1,16 @@
 ﻿
 
 
-
-<div style="background-color:white">
-    <form name="GroupForm" ng-controller="GroupsCtrl as grpCtrl" ng-submit="GroupForm.$valid" novalidate>
+<div ng-controller="GroupsCtrl as grpCtrl">
+    <form name="GroupForm"  ng-submit="GroupForm.$valid && addGroup(group)" novalidate>
 
         <h3>Add Group</h3>
 
         <p>Total Items: {{TotalItems}}</p>
 
         <div class="form-group">
-            <label for="GrpName">Group Name</label>
-            <input type="text" class="form-control" id="GrpName" ng-model="group.GrpName" />
+            <label for="groupName">Group Name</label>
+            <input type="text" class="form-control" id="groupName" ng-model="group.groupName" />
 
         </div>
         
@@ -19,9 +18,9 @@
 
         <div class="form-group">
 
-            <input type="submit" value="Submit" ng-click="addGroup(group)" />
+            <input type="submit" value="Submit"  />
 
-
+            <!--ng-click="addGroup(group)"-->
 
             <!--<button class="btn" ng-click="addOrganisation()"><span></span>Add</button>-->
             <!--<input type="submit" ng-click="update(user)" value="Save" />-->
@@ -30,16 +29,72 @@
     </form>
 
 
-    <!--<div ng-controller="OrganisationCtrl">
+    <div>
 
-        <ul class="list-unstyled">
-            <li  ng-repeat="Org in Organisations">
-                {{group.OrgName}}
+        <!--<ul class="list-unstyled">
+            <li  ng-repeat="grp in groupsList">
+                {{grp.groupName}}
             </li>
-        </ul>
+        </ul>-->
 
 
-    </div>-->
+    
+        <div ng-repeat="group in groupsList">
+
+            <div class="col-md-4">
+                <div class="box box-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-aqua-active">
+                        <h3 class="widget-user-username">{{group.groupName}}</h3>
+                        <h5 class="widget-user-desc">{{group.description}}</h5>
+                        <strong>Event Date:</strong> {{group.firstDayOfActivity | date:'medium'}}
+                    </div>
+                    <div class="widget-user-image">
+                        <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header">
+                                        <span title="Number attending">{{group.groupMembersCount}}</span>
+                                    </h5>
+                                    <span class="description-text">JOINED</span>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+
+                            <div class="col-sm-4 border-right">
+                                <div class="description-block">
+                                    <h5 class="description-header"><span title="Max Allowed">{{group.groupMaxSize}}</span></h5>
+                                    <span class="description-text">MAX</span>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                            <div class="col-sm-4">
+                                <div class="description-block">
+                                    <h5 class="description-header">{{group.groupMembersPaid}}</h5>
+                                    <span class="description-text">PAID</span>
+                                </div><!-- /.description-block -->
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div>
+                    <!--<div class="box-footer box-comments">
+                    <div class="box-comment">
+                      <div class="comment-text">
+                        <span class="username">
+                          Event Date:
+                        </span>
+                        {{group.firstDayOfActivity}}
+                      </div>
+                    </div>
+                  </div>
+                </div>-->
+                </div>
+            </div>
 
 
+
+
+
+        </div>
+    </div>
 </div>

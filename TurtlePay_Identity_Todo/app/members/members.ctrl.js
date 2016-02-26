@@ -60,7 +60,7 @@ angular.module("members", [])
         alert('adding member')
 
         $scope.MembersList.push(this.member);
-
+        $scope.TotalMembers = $scope.MembersList.length;
 
 
         ////saving to database

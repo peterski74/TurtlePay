@@ -60,7 +60,7 @@ angular.module("organisation", [])
         alert('adding org')
 
         $scope.Organisations.push(this.Org);
-
+        $scope.TotalItems = $scope.Organisations.length;
 
 
         ////saving to database
