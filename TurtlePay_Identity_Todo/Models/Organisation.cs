@@ -14,16 +14,9 @@ namespace TurtlePay_Identity_Todo.Models
     
     public partial class Organisation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Organisation()
-        {
-            this.Groups = new HashSet<Group>();
-        }
-    
-        public int OrganisationID { get; set; }
-        public string OrganisationName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Group> Groups { get; set; }
+        public int OrgId { get; set; }
+        public string OrgName { get; set; }
+        public string OrgType { get; set; }
+        public string OrgCategory { get; set; }
     }
 }

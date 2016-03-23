@@ -10,6 +10,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TurtlePay_Identity_Todo.Models;
 
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
+using Owin;
+
+
+
 namespace TurtlePay_Identity_Todo.Controllers
 {
     [Authorize]
@@ -17,15 +23,17 @@ namespace TurtlePay_Identity_Todo.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ApplicationRoleManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -51,7 +59,14 @@ namespace TurtlePay_Identity_Todo.Controllers
                 _userManager = value;
             }
         }
-
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return this._roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set { this._roleManager = value; }
+        }
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -155,14 +170,26 @@ namespace TurtlePay_Identity_Todo.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    //create Admin role and adding user to admin role  
+                    // used this link to implement roles http://geekswithblogs.net/MightyZot/archive/2014/12/28/implementing-rolemanager-in-asp.net-mvc-5.aspx
+                    if (!RoleManager.RoleExists("Admin"))
+                    {
+                        //var str = RoleManager.Create(new IdentityRole("Admin"));
+                        var str = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+                    }
+
+                    var roleresult = UserManager.AddToRole(user.Id, "Admin");
+                   
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

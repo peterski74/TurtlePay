@@ -4,206 +4,354 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="turtlepayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="turtlepayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="Groups">
           <Key>
-            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="GroupId" />
           </Key>
-          <Property Name="GroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrganisationID" Type="int" />
-          <Property Name="ParentGroupID" Type="int" />
-          <Property Name="GroupName" Type="nvarchar" MaxLength="500" />
-          <Property Name="GroupType" Type="int" />
+          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="GroupTypes">
+        <EntityType Name="Organisation">
           <Key>
-            <PropertyRef Name="GroupTypeID" />
+            <PropertyRef Name="OrgId" />
           </Key>
-          <Property Name="GroupTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupTypeName" Type="nvarchar" MaxLength="250" />
+          <Property Name="OrgId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrgName" Type="nvarchar" MaxLength="150" />
+          <Property Name="OrgType" Type="nvarchar" MaxLength="3" />
+          <Property Name="OrgCategory" Type="nvarchar" MaxLength="3" />
         </EntityType>
-        <EntityType Name="Organisations">
-          <Key>
-            <PropertyRef Name="OrganisationID" />
-          </Key>
-          <Property Name="OrganisationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrganisationName" Type="nvarchar" MaxLength="500" />
-        </EntityType>
-        <Association Name="FK_Groups_Groups">
-          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
-          <End Role="Groups1" Type="Self.Groups" Multiplicity="*" />
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="GroupID" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Groups1">
-              <PropertyRef Name="ParentGroupID" />
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Groups_GroupTypes">
-          <End Role="GroupTypes" Type="Self.GroupTypes" Multiplicity="0..1" />
-          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GroupTypes">
-              <PropertyRef Name="GroupTypeID" />
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Groups">
-              <PropertyRef Name="GroupType" />
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Groups_Organisations">
-          <End Role="Organisations" Type="Self.Organisations" Multiplicity="0..1" />
-          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Organisations">
-              <PropertyRef Name="OrganisationID" />
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Groups">
-              <PropertyRef Name="OrganisationID" />
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="turtlepayModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GroupTypes" EntityType="Self.GroupTypes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Organisations" EntityType="Self.Organisations" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Groups_Groups" Association="Self.FK_Groups_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Groups1" EntitySet="Groups" />
+          <EntitySet Name="Organisation" EntityType="Self.Organisation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
           </AssociationSet>
-          <AssociationSet Name="FK_Groups_GroupTypes" Association="Self.FK_Groups_GroupTypes">
-            <End Role="GroupTypes" EntitySet="GroupTypes" />
-            <End Role="Groups" EntitySet="Groups" />
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_Groups_Organisations" Association="Self.FK_Groups_Organisations">
-            <End Role="Organisations" EntitySet="Organisations" />
-            <End Role="Groups" EntitySet="Groups" />
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="turtlepayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Group">
+        <EntityContainer Name="turtlepayEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="turtlepayModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="turtlepayModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="turtlepayModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="turtlepayModel.AspNetUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="turtlepayModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="turtlepayModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="turtlepayModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Organisations" EntityType="turtlepayModel.Organisation" />
+          <EntitySet Name="Groups" EntityType="turtlepayModel.Group" />
+        </EntityContainer>
+        <EntityType Name="AspNetRole">
           <Key>
-            <PropertyRef Name="GroupID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrganisationID" Type="Int32" />
-          <Property Name="ParentGroupID" Type="Int32" />
-          <Property Name="GroupName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="GroupType" Type="Int32" />
-          <NavigationProperty Name="Groups1" Relationship="Self.FK_Groups_Groups" FromRole="Groups" ToRole="Groups1" />
-          <NavigationProperty Name="Group1" Relationship="Self.FK_Groups_Groups" FromRole="Groups1" ToRole="Groups" />
-          <NavigationProperty Name="GroupType1" Relationship="Self.FK_Groups_GroupTypes" FromRole="Groups" ToRole="GroupTypes" />
-          <NavigationProperty Name="Organisation" Relationship="Self.FK_Groups_Organisations" FromRole="Groups" ToRole="Organisations" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="turtlepayModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
-        <EntityType Name="GroupType">
+        <EntityType Name="AspNetUserClaim">
           <Key>
-            <PropertyRef Name="GroupTypeID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="GroupTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupTypeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_GroupTypes" FromRole="GroupTypes" ToRole="Groups" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="turtlepayModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
         </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="turtlepayModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="turtlepayModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="turtlepayModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="AspNetRoles" Relationship="turtlepayModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="turtlepayModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="turtlepayModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="turtlepayModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="turtlepayModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="turtlepayModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="turtlepayModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
         <EntityType Name="Organisation">
           <Key>
-            <PropertyRef Name="OrganisationID" />
+            <PropertyRef Name="OrgId" />
           </Key>
-          <Property Name="OrganisationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrganisationName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Organisations" FromRole="Organisations" ToRole="Groups" />
+          <Property Name="OrgId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OrgType" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="OrgCategory" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_Groups_Groups">
-          <End Role="Groups" Type="Self.Group" Multiplicity="0..1" />
-          <End Role="Groups1" Type="Self.Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Groups">
-              <PropertyRef Name="GroupID" />
-            </Principal>
-            <Dependent Role="Groups1">
-              <PropertyRef Name="ParentGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Groups_GroupTypes">
-          <End Role="GroupTypes" Type="Self.GroupType" Multiplicity="0..1" />
-          <End Role="Groups" Type="Self.Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupTypes">
-              <PropertyRef Name="GroupTypeID" />
-            </Principal>
-            <Dependent Role="Groups">
-              <PropertyRef Name="GroupType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Groups_Organisations">
-          <End Role="Organisations" Type="Self.Organisation" Multiplicity="0..1" />
-          <End Role="Groups" Type="Self.Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Organisations">
-              <PropertyRef Name="OrganisationID" />
-            </Principal>
-            <Dependent Role="Groups">
-              <PropertyRef Name="OrganisationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="turtlepayEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Groups" EntityType="Self.Group" />
-          <EntitySet Name="GroupTypes" EntityType="Self.GroupType" />
-          <EntitySet Name="Organisations" EntityType="Self.Organisation" />
-          <AssociationSet Name="FK_Groups_Groups" Association="Self.FK_Groups_Groups">
-            <End Role="Groups" EntitySet="Groups" />
-            <End Role="Groups1" EntitySet="Groups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Groups_GroupTypes" Association="Self.FK_Groups_GroupTypes">
-            <End Role="GroupTypes" EntitySet="GroupTypes" />
-            <End Role="Groups" EntitySet="Groups" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Groups_Organisations" Association="Self.FK_Groups_Organisations">
-            <End Role="Organisations" EntitySet="Organisations" />
-            <End Role="Groups" EntitySet="Groups" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="turtlepayModelStoreContainer" CdmEntityContainer="turtlepayEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="turtlepayModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="turtlepayModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="turtlepayModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="turtlepayModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="turtlepayModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Organisations">
+            <EntityTypeMapping TypeName="turtlepayModel.Organisation">
+              <MappingFragment StoreEntitySet="Organisation">
+                <ScalarProperty Name="OrgCategory" ColumnName="OrgCategory" />
+                <ScalarProperty Name="OrgType" ColumnName="OrgType" />
+                <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Groups">
             <EntityTypeMapping TypeName="turtlepayModel.Group">
               <MappingFragment StoreEntitySet="Groups">
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="OrganisationID" ColumnName="OrganisationID" />
-                <ScalarProperty Name="ParentGroupID" ColumnName="ParentGroupID" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="GroupTypes">
-            <EntityTypeMapping TypeName="turtlepayModel.GroupType">
-              <MappingFragment StoreEntitySet="GroupTypes">
-                <ScalarProperty Name="GroupTypeID" ColumnName="GroupTypeID" />
-                <ScalarProperty Name="GroupTypeName" ColumnName="GroupTypeName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Organisations">
-            <EntityTypeMapping TypeName="turtlepayModel.Organisation">
-              <MappingFragment StoreEntitySet="Organisations">
-                <ScalarProperty Name="OrganisationID" ColumnName="OrganisationID" />
-                <ScalarProperty Name="OrganisationName" ColumnName="OrganisationName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
