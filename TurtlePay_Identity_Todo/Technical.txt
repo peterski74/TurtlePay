@@ -1,0 +1,31 @@
+﻿
+///////////////////////////////////// Create User ///////////////////////////
+var user = new ApplicationUser();
+user.UserName = username;
+user.Email = email;
+user.EmailConfirmed = true;
+user.LockoutEnabled = true;
+if (_userManager.Create(user, password) == IdentityResult.Success)
+{
+  // Add the user's security question and answer
+  // This uses another Entity Context, and is separate from ASP.NET Identity
+  var userExts = new AspNetUsersExt();
+  userExts.UserId = user.Id;
+
+  // These 3 properties are up to you; my implementation may be different
+  // than what you need
+  userExts.SecurityQuestion = securityQuestion;
+  userExts.SecurityAnswerSalt = salt;
+  userExts.SecurityAnswer = securityAnswer;
+
+  using (var entities = new MyEntities())
+  {
+    entities.AspNetUsersExts.Add(userExts);
+    entities.SaveChanges();
+  }
+
+  // All done
+  // You would now log the user in
+}
+
+////////////////////////////////////////////////////////////////////
