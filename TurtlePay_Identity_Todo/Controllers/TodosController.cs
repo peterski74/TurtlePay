@@ -49,7 +49,7 @@ namespace Todo.Controllers
         [HttpPost]
         public string Purge()
         {
-            TodoDatabaseInitializer.PurgeDatabase(_contextProvider.Context);
+            //TodoDatabaseInitializer.PurgeDatabase(_contextProvider.Context);
             return "purged";
         }
 
@@ -58,7 +58,7 @@ namespace Todo.Controllers
         public string Reset()
         {
             Purge();
-            TodoDatabaseInitializer.SeedDatabase(_contextProvider.Context);
+            //TodoDatabaseInitializer.SeedDatabase(_contextProvider.Context);
             return "reset";
         }
 

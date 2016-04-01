@@ -26,162 +26,162 @@ namespace TurtlePay_Identity_Todo.Controllers
     builder.EntitySet<AspNetUser>("AspNetUsers"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class AspNetRolesController : ODataController
-    {
-        private turtlepayEntities db = new turtlepayEntities();
+    //public class AspNetRolesController : ODataController
+    //{
+    //    private turtlepayEntities db = new turtlepayEntities();
 
-        // GET: odata/AspNetRoles
-        [EnableQuery]
-        public IQueryable<AspNetRole> GetAspNetRoles()
-        {
-            return db.AspNetRoles;
-        }
+    //    // GET: odata/AspNetRoles
+    //    [EnableQuery]
+    //    public IQueryable<AspNetRole> GetAspNetRoles()
+    //    {
+    //        return db.AspNetRoles;
+    //    }
 
-        // GET: odata/AspNetRoles(5)
-        [EnableQuery]
-        public SingleResult<AspNetRole> GetAspNetRole([FromODataUri] string key)
-        {
-            return SingleResult.Create(db.AspNetRoles.Where(aspNetRole => aspNetRole.Id == key));
-        }
+    //    // GET: odata/AspNetRoles(5)
+    //    [EnableQuery]
+    //    public SingleResult<AspNetRole> GetAspNetRole([FromODataUri] string key)
+    //    {
+    //        return SingleResult.Create(db.AspNetRoles.Where(aspNetRole => aspNetRole.Id == key));
+    //    }
 
-        // PUT: odata/AspNetRoles(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] string key, Delta<AspNetRole> patch)
-        {
-            Validate(patch.GetEntity());
+    //    // PUT: odata/AspNetRoles(5)
+    //    public async Task<IHttpActionResult> Put([FromODataUri] string key, Delta<AspNetRole> patch)
+    //    {
+    //        Validate(patch.GetEntity());
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+    //        if (!ModelState.IsValid)
+    //        {
+    //            return BadRequest(ModelState);
+    //        }
 
-            AspNetRole aspNetRole = await db.AspNetRoles.FindAsync(key);
-            if (aspNetRole == null)
-            {
-                return NotFound();
-            }
+    //        AspNetRole aspNetRole = await db.AspNetRoles.FindAsync(key);
+    //        if (aspNetRole == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-            patch.Put(aspNetRole);
+    //        patch.Put(aspNetRole);
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AspNetRoleExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+    //        try
+    //        {
+    //            await db.SaveChangesAsync();
+    //        }
+    //        catch (DbUpdateConcurrencyException)
+    //        {
+    //            if (!AspNetRoleExists(key))
+    //            {
+    //                return NotFound();
+    //            }
+    //            else
+    //            {
+    //                throw;
+    //            }
+    //        }
 
-            return Updated(aspNetRole);
-        }
+    //        return Updated(aspNetRole);
+    //    }
 
-        // POST: odata/AspNetRoles
-        public async Task<IHttpActionResult> Post(AspNetRole aspNetRole)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+    //    // POST: odata/AspNetRoles
+    //    public async Task<IHttpActionResult> Post(AspNetRole aspNetRole)
+    //    {
+    //        if (!ModelState.IsValid)
+    //        {
+    //            return BadRequest(ModelState);
+    //        }
 
-            db.AspNetRoles.Add(aspNetRole);
+    //        db.AspNetRoles.Add(aspNetRole);
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AspNetRoleExists(aspNetRole.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+    //        try
+    //        {
+    //            await db.SaveChangesAsync();
+    //        }
+    //        catch (DbUpdateException)
+    //        {
+    //            if (AspNetRoleExists(aspNetRole.Id))
+    //            {
+    //                return Conflict();
+    //            }
+    //            else
+    //            {
+    //                throw;
+    //            }
+    //        }
 
-            return Created(aspNetRole);
-        }
+    //        return Created(aspNetRole);
+    //    }
 
-        // PATCH: odata/AspNetRoles(5)
-        [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] string key, Delta<AspNetRole> patch)
-        {
-            Validate(patch.GetEntity());
+    //    // PATCH: odata/AspNetRoles(5)
+    //    [AcceptVerbs("PATCH", "MERGE")]
+    //    public async Task<IHttpActionResult> Patch([FromODataUri] string key, Delta<AspNetRole> patch)
+    //    {
+    //        Validate(patch.GetEntity());
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+    //        if (!ModelState.IsValid)
+    //        {
+    //            return BadRequest(ModelState);
+    //        }
 
-            AspNetRole aspNetRole = await db.AspNetRoles.FindAsync(key);
-            if (aspNetRole == null)
-            {
-                return NotFound();
-            }
+    //        AspNetRole aspNetRole = await db.AspNetRoles.FindAsync(key);
+    //        if (aspNetRole == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-            patch.Patch(aspNetRole);
+    //        patch.Patch(aspNetRole);
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AspNetRoleExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+    //        try
+    //        {
+    //            await db.SaveChangesAsync();
+    //        }
+    //        catch (DbUpdateConcurrencyException)
+    //        {
+    //            if (!AspNetRoleExists(key))
+    //            {
+    //                return NotFound();
+    //            }
+    //            else
+    //            {
+    //                throw;
+    //            }
+    //        }
 
-            return Updated(aspNetRole);
-        }
+    //        return Updated(aspNetRole);
+    //    }
 
-        // DELETE: odata/AspNetRoles(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] string key)
-        {
-            AspNetRole aspNetRole = await db.AspNetRoles.FindAsync(key);
-            if (aspNetRole == null)
-            {
-                return NotFound();
-            }
+    //    // DELETE: odata/AspNetRoles(5)
+    //    public async Task<IHttpActionResult> Delete([FromODataUri] string key)
+    //    {
+    //        AspNetRole aspNetRole = await db.AspNetRoles.FindAsync(key);
+    //        if (aspNetRole == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-            db.AspNetRoles.Remove(aspNetRole);
-            await db.SaveChangesAsync();
+    //        db.AspNetRoles.Remove(aspNetRole);
+    //        await db.SaveChangesAsync();
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+    //        return StatusCode(HttpStatusCode.NoContent);
+    //    }
 
-        // GET: odata/AspNetRoles(5)/AspNetUsers
-        [EnableQuery]
-        public IQueryable<AspNetUser> GetAspNetUsers([FromODataUri] string key)
-        {
-            return db.AspNetRoles.Where(m => m.Id == key).SelectMany(m => m.AspNetUsers);
-        }
+    //    // GET: odata/AspNetRoles(5)/AspNetUsers
+    //    [EnableQuery]
+    //    public IQueryable<AspNetUser> GetAspNetUsers([FromODataUri] string key)
+    //    {
+    //        return db.AspNetRoles.Where(m => m.Id == key).SelectMany(m => m.AspNetUsers);
+    //    }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    //    protected override void Dispose(bool disposing)
+    //    {
+    //        if (disposing)
+    //        {
+    //            db.Dispose();
+    //        }
+    //        base.Dispose(disposing);
+    //    }
 
-        private bool AspNetRoleExists(string key)
-        {
-            return db.AspNetRoles.Count(e => e.Id == key) > 0;
-        }
-    }
+    //    private bool AspNetRoleExists(string key)
+    //    {
+    //        return db.AspNetRoles.Count(e => e.Id == key) > 0;
+    //    }
+    //}
 }

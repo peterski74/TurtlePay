@@ -28,11 +28,11 @@ namespace TurtlePay_Identity_Todo
             );
 
 
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Group>("WebAPIGroups");
-            builder.EntitySet<Organisation>("Organisations");
+            //ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            //builder.EntitySet<Group>("WebAPIGroups");
+            //builder.EntitySet<Organisation>("Organisations");
 
-            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
+            //config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
 
         }

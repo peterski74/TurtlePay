@@ -5,14 +5,14 @@ namespace TurtlePay_Identity_Todo.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TurtlePay_Identity_Todo.Models.turtlepayEntities>
+    internal sealed class Configuration : DbMigrationsConfiguration<TurtlePay_Identity_Todo.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(TurtlePay_Identity_Todo.Models.turtlepayEntities context)
+        protected override void Seed(TurtlePay_Identity_Todo.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
