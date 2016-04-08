@@ -65,12 +65,12 @@ namespace TurtlePay_Identity_Todo.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
+        [Display(Name = "Given Name")]
+        public string GivenName { get; set; }
 
         [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        [Display(Name = "Family Name")]
+        public string FamilyName { get; set; }
         
         [Required]
         [Display(Name = "Mobile")]

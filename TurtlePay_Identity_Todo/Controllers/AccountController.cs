@@ -166,7 +166,8 @@ namespace TurtlePay_Identity_Todo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName , Mobile = model.Mobile };
+                
+        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, GivenName = model.GivenName, FamilyName = model.FamilyName , Mobile = model.Mobile, CreatedBy="", CreatedDate=DateTime.Now, Active=true, Deleted=false };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

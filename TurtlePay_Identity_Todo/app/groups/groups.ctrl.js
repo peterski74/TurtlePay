@@ -15,12 +15,9 @@ Date 19/02/2016
 //angular.module('app')
 angular.module("groups", [])
 
-
 .controller('GroupsCtrl', ['$q', '$scope', '$http', '$timeout', 'dataservice', 'logger', function ($q, $scope, $http, $timeout, dataservice, logger) {
     // The controller's API to which the view binds
     //var vm = this;
-
-
 
     $scope.groupsList = [];
     $scope.TotalItems = 0;
@@ -33,7 +30,8 @@ angular.module("groups", [])
     function getGroups(forceRefresh) {
         $http({
             method: 'GET',
-            url: 'http://private-75243-groups14.apiary-mock.com/groups'
+            url: 'http://localhost:65207/breeze/groups/Groups'
+            //http://private-75243-groups14.apiary-mock.com/groups
         }).success(function (_data) {
             getSucceeded(_data);
 
@@ -46,7 +44,8 @@ angular.module("groups", [])
 
 
     function getSucceeded(data) {
-        $scope.groupsList = data;
+        console.log(data);
+        $scope.groupsList = data[0];
         $scope.TotalItems = $scope.groupsList.length;
         $scope.loading = false;
 
@@ -58,6 +57,8 @@ angular.module("groups", [])
     $scope.addGroup = function (group) {
 
        // alert('adding group')
+        var newGroup = dataservice.createGroup(group); 
+        save(true);
 
         $scope.groupsList.push(group);
         $scope.TotalItems = $scope.groupsList.length;
@@ -71,6 +72,15 @@ angular.module("groups", [])
         //});
         this.group = {};
     };
+    function save(force) {
+        // Save if have changes to save AND
+        // if must save OR (save not suspended AND not editing a Todo)
+        if (dataservice.hasChanges() && (force)) {
+            return dataservice.saveChanges();
+        }
+        // Decided not to save; return resolved promise w/ no result
+        return $q.when(false);
+    }
 
     function TotalItems() {
         var count = $scope.groupsList.length;

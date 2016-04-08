@@ -58,6 +58,9 @@ angular.module("members", [])
     $scope.addMember = function (member) {
 
         alert('adding member')
+        //var newUser = dataservice.createUser(member);
+       
+        //save(true);
 
         $scope.MembersList.push(this.member);
         $scope.TotalMembers = $scope.MembersList.length;
@@ -69,6 +72,16 @@ angular.module("members", [])
         //});
         ////this.Org = {};
     };
+
+    function save(force) {
+        // Save if have changes to save AND
+        // if must save OR (save not suspended AND not editing a Todo)
+        if (dataservice.hasChanges() && (force ) ) {
+            return dataservice.saveChanges();
+        }
+        // Decided not to save; return resolved promise w/ no result
+        return $q.when(false);
+    }
 
     function TotalMembers() {
         var count = $scope.MembersList.length;

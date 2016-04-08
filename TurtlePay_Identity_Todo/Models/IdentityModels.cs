@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -11,10 +12,15 @@ namespace TurtlePay_Identity_Todo.Models
     {
 
         //Custom user profile fields        
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string GivenName { get; set; }
+        public string FamilyName { get; set; }
 
         public string Mobile { get; set; }
+        public string CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public bool Active { get; set; }
+       
+        public bool Deleted { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -28,9 +34,11 @@ namespace TurtlePay_Identity_Todo.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("TodosContext", throwIfV1Schema: false)
+            : base("TurtlePayContext", throwIfV1Schema: false)
         {
         }
+
+        public IQueryable<Groups> Groups { get; set; }
 
         public static ApplicationDbContext Create()
         {

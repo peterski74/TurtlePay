@@ -1,4 +1,4 @@
-/* dataservice: data access and model management layer 
+﻿/* dataservice: data access and model management layer 
  * relies on Angular injector to provide:
  *     $timeout - Angular equivalent of 'setTimeout'
  *     breeze - the Breeze.Angular service (which is breeze itself)
@@ -13,7 +13,8 @@
 
         //var serviceName = 'breeze/todos'; // route to the same origin Web Api controller
         var serviceRoot = window.location.protocol + '//' + window.location.host + '/';
-        var serviceName = serviceRoot + 'breeze/groups';
+        var serviceName = serviceRoot + 'odata/';
+        
 
         // *** Cross origin service example  ***
         // When data server and application server are in different origins
@@ -24,9 +25,9 @@
 
         var service = {
             addPropertyChangeHandler: addPropertyChangeHandler,
-            createGroup: createGroup,
-            //deleteGroupAndSave: deleteGroupAndSave,
-            //getGroups: getGroups,
+            createUser: createUser,
+            deleteUser: deleteUser,
+            getUsers: getUsers,
             hasChanges: hasChanges,
             removePropertyChangeHandler: removePropertyChangeHandler,
             saveChanges: saveChanges
@@ -46,11 +47,12 @@
             });
         }
 
-        function createTodo(initialValues) {
-            return manager.createEntity('TodoItem', initialValues);
+        function createUser(user) {
+            return manager.createEntity('AspNetUsers', user);
+           
         }
 
-        function deleteTodoAndSave(todoItem) {
+        function deleteUser(todoItem) {
             if (todoItem) {
                 var aspect = todoItem.entityAspect;
                 if (aspect.isBeingSaved && aspect.entityState.isAdded()) {
@@ -63,7 +65,7 @@
             }
         }
 
-        function getTodos(includeArchived) {
+        function getUsers(includeArchived) {
             var query = breeze.EntityQuery
                 .from("Todos")
                 .orderBy("CreatedAt");
@@ -139,13 +141,10 @@
 
         }
 
+        
+    
+
       
-
-        function createGroup(group) {
-            //manager.fetchMetadata();
-            return manager.createEntity('Groups', group);
-
-        }
-
+        //#endregion
     }
 })();
