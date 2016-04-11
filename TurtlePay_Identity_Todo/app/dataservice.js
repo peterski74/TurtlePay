@@ -13,8 +13,10 @@
 
         //var serviceName = 'breeze/todos'; // route to the same origin Web Api controller
         var serviceRoot = window.location.protocol + '//' + window.location.host + '/';
-        var serviceName = serviceRoot + 'breeze/groups';
+        var serviceName = serviceRoot + '/breeze/groups/';
 
+        // Groups service  http://localhost:65207/breeze/groups/Groups
+        
         // *** Cross origin service example  ***
         // When data server and application server are in different origins
         //var serviceName = 'http://sampleservice.breezejs.com/api/todos/';
@@ -26,7 +28,7 @@
             addPropertyChangeHandler: addPropertyChangeHandler,
             createGroup: createGroup,
             //deleteGroupAndSave: deleteGroupAndSave,
-            //getGroups: getGroups,
+            getGroups: getGroups,
             hasChanges: hasChanges,
             removePropertyChangeHandler: removePropertyChangeHandler,
             saveChanges: saveChanges
@@ -62,6 +64,21 @@
                 saveChanges();
             }
         }
+
+        function getGroups() {
+            var query = breeze.EntityQuery
+                .from("Groups");
+                //.orderBy("CreatedAt");
+                       
+            var promise = manager.executeQuery(query).catch(queryFailed);
+            return promise;
+
+            function queryFailed(error) {
+                logger.error(error.message, "Query failed");
+                return $q.reject(error); // so downstream promise users know it failed
+            }
+        }
+
 
         function getTodos(includeArchived) {
             var query = breeze.EntityQuery

@@ -27,20 +27,43 @@ angular.module("groups", [])
     getGroups();
     //TotalItems();
 
-    function getGroups(forceRefresh) {
-        $http({
-            method: 'GET',
-            url: 'http://localhost:65207/breeze/groups/Groups'
-            //http://private-75243-groups14.apiary-mock.com/groups
-        }).success(function (_data) {
-            getSucceeded(_data);
+    //function getGroups(forceRefresh) {
+    //    $http({
+    //        method: 'GET',
+    //        url: 'http://localhost:65207/breeze/groups/Groups'
+    //        //http://private-75243-groups14.apiary-mock.com/groups
+    //    }).success(function (_data) {
+    //        getSucceeded(_data);
 
-           // logger.info("Fetched orgs");
+    //       // logger.info("Fetched orgs");
 
-        }).error(function (data, status) {
-            console.log("Error status : " + status);
-        });
-    }
+    //    }).error(function (data, status) {
+    //        console.log("Error status : " + status);
+    //    });
+    //}
+
+    function getGroups() {
+        //editEnd();
+        // wait for Ng binding to set 'includeArchived' flag, then proceed
+        $timeout(getGroupsImpl, 0);
+
+        function getGroupsImpl() {
+            dataservice.getGroups()
+                .then(querySucceeded);
+        }
+
+        function querySucceeded(data) {
+            //vm.items = data.results;
+            //logger.info("Fetched Todos " +
+            //(vm.includeArchived ? "including archived" : "excluding archived"));
+
+            $scope.groupsList = data.results; // data;
+            $scope.TotalItems = $scope.groupsList.length;
+            $scope.loading = false;
+
+
+        }
+    };
 
 
     function getSucceeded(data) {

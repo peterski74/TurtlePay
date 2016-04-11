@@ -45,9 +45,9 @@
                 <div class="box box-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-aqua-active">
-                        <h3 class="widget-user-username">{{group.groupName}}</h3>
-                        <h5 class="widget-user-desc">{{group.description}}</h5>
-                        <strong>Event Date:</strong> {{group.firstDayOfActivity | date:'medium'}}
+                        <h3 class="widget-user-username">{{group.GroupName}}</h3>
+                        <h5 class="widget-user-desc">{{group.Description}}</h5>
+                        <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
                     </div>
                     <div class="widget-user-image">
                         <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
@@ -57,7 +57,7 @@
                             <div class="col-sm-4 border-right">
                                 <div class="description-block">
                                     <h5 class="description-header">
-                                        <span title="Number attending">{{group.groupMembersCount}}</span>
+                                        <span title="Number attending">{{group.GroupMembersCount}}</span>
                                     </h5>
                                     <span class="description-text">JOINED</span>
                                 </div><!-- /.description-block -->
@@ -65,13 +65,13 @@
 
                             <div class="col-sm-4 border-right">
                                 <div class="description-block">
-                                    <h5 class="description-header"><span title="Max Allowed">{{group.groupMaxSize}}</span></h5>
+                                    <h5 class="description-header"><span title="Max Allowed">{{group.GroupMaxSize}}</span></h5>
                                     <span class="description-text">MAX</span>
                                 </div><!-- /.description-block -->
                             </div><!-- /.col -->
                             <div class="col-sm-4">
                                 <div class="description-block">
-                                    <h5 class="description-header">{{group.groupMembersPaid}}</h5>
+                                    <h5 class="description-header">{{group.GroupMembersPaid}}</h5>
                                     <span class="description-text">PAID</span>
                                 </div><!-- /.description-block -->
                             </div><!-- /.col -->
@@ -83,7 +83,7 @@
                         <span class="username">
                           Event Date:
                         </span>
-                        {{group.firstDayOfActivity}}
+                        {{group.FirstDayOfActivity}}
                       </div>
                     </div>
                   </div>
