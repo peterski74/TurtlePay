@@ -10,11 +10,42 @@
 
         <div class="form-group">
             <label for="GroupName">Group Name</label>
-            <input type="text" class="form-control" id="GroupName" ng-model="group.GroupName" />
+            <input type="text" class="form-control" id="GroupName" ng-model="group.GroupName" placeholder="Group Name" required/>
+
+        </div>
+      
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <input type="text" class="form-control" id="Description" ng-model="group.Description" placeholder="Description" required/>
+
+        </div>
+       
+        
+        <div class="form-group">
+            <label for="JoinLastDay">Join Last Day</label>
+            <input type="date" class="form-control" id="JoinLastDay" ng-model="group.JoinLastDay" placeholder="Join Last Day" required/>
+            
+        </div>
+
+        <div class="form-group">
+            <label for="PayLastDay">Pay Last Day</label>
+            <input type="date" class="form-control" id="PayLastDay" ng-model="group.PayLastDay" placeholder="Pay Last Day" required/>
+
+        </div>
+       
+        <div class="form-group">
+            <label for="FirstDayOfActivity">First Day Of Activity</label>
+            <input type="date" class="form-control" id="FirstDayOfActivity" ng-model="group.FirstDayOfActivity" placeholder="First Day Of Activity" required />
+
+        </div>
+       
+        <div class="form-group">
+            <label for="GroupMaxSize">Group Max Size</label>
+            <input type="number" class="form-control" id="GroupMaxSize" ng-model="group.GroupMaxSize" placeholder="Group Max Size" required/>
 
         </div>
         
-
+       
 
         <div class="form-group">
 
@@ -48,6 +79,7 @@
                         <h3 class="widget-user-username">{{group.GroupName}}</h3>
                         <h5 class="widget-user-desc">{{group.Description}}</h5>
                         <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
+                       <h4 class="widget-user-desc"><a href="/Account/Register" >Add Member</a></h4>
                     </div>
                     <div class="widget-user-image">
                         <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
@@ -75,6 +107,7 @@
                                     <span class="description-text">PAID</span>
                                 </div><!-- /.description-block -->
                             </div><!-- /.col -->
+                                                    
                         </div><!-- /.row -->
                     </div>
                     <!--<div class="box-footer box-comments">

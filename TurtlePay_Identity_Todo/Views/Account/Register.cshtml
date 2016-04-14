@@ -59,10 +59,10 @@
         if (User.IsInRole("Admin"))
         {
             <div class="form-group">
-                groups ddl
-                @*@Html.LabelFor(m => m.GroupId, new { @class = "col-md-2 control-label" })*@
+                
+                @Html.LabelFor(m => m.GroupId, new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
-                    @*@Html.DropDownListFor(m => m.GroupId, new SelectList(Model.Groups, "id", "name", Model.GroupId), new { @class = "form-control" })*@
+                    @Html.DropDownListFor(m => m.GroupId, (SelectList)ViewBag.GroupsList, new { @class = "form-control" })
                 </div>
 
                 

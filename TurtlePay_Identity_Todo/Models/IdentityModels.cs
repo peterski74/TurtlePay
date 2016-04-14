@@ -18,9 +18,13 @@ namespace TurtlePay_Identity_Todo.Models
         public string Mobile { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
+
+        public int GroupId { get; set; }
+        public int OrganisationId { get; set; }
         public bool Active { get; set; }
        
         public bool Deleted { get; set; }
+        public bool ProfileCompleted { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

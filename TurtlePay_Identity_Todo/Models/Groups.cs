@@ -25,8 +25,9 @@ namespace TurtlePay_Identity_Todo.Models
         public int  GroupMembersOverdue  { get; set; }
 
         public System.DateTime GroupCreatedDate { get; set; }  // 25 March 2016, 9am 
-       
 
+        public bool Active { get; set; }
+        public bool Deleted { get; set; }
 
     }
 }

@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Owin;
+using System;
 using System.Globalization;
 using System.Linq;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using TurtlePay_Identity_Todo.Models;
-
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin;
-using Owin;
 
 
 
@@ -154,6 +154,26 @@ namespace TurtlePay_Identity_Todo.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                Groups grpItem = new Groups();
+                grpItem.Id = 0;
+                grpItem.GroupName = "-- Select a Group--";
+
+                var grps = new List<Groups>();
+                using (TurtlePayContext db = new TurtlePayContext())
+                {
+                    grps = db.Groups.Where(x => x.Deleted == false)
+                        .OrderBy(x => x.GroupName)
+                        .ToList();
+
+                }
+
+                grps.Insert(0, grpItem);
+
+                ViewBag.GroupsList = new SelectList(grps, "Id", "GroupName");
+            }
+
             return View();
         }
 
@@ -166,24 +186,35 @@ namespace TurtlePay_Identity_Todo.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, GivenName = model.GivenName, FamilyName = model.FamilyName , Mobile = model.Mobile, CreatedBy="", CreatedDate=DateTime.Now, Active=true, Deleted=false };
+                ApplicationUser user;
+                if (User.Identity.IsAuthenticated)
+                {
+                     user = new ApplicationUser { UserName = model.Email, Email = model.Email, GivenName = model.GivenName, FamilyName = model.FamilyName, Mobile = model.Mobile, CreatedBy = User.Identity.GetUserId(), CreatedDate = DateTime.Now, Active = true, Deleted = false, GroupId=model.GroupId };
+                }
+                else
+                {
+                     user = new ApplicationUser { UserName = model.Email, Email = model.Email, GivenName = model.GivenName, FamilyName = model.FamilyName, Mobile = model.Mobile, CreatedBy = "", CreatedDate = DateTime.Now, Active = true, Deleted = false };
+                }
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-
-                    //create Admin role and adding user to admin role  
-                    // used this link to implement roles http://geekswithblogs.net/MightyZot/archive/2014/12/28/implementing-rolemanager-in-asp.net-mvc-5.aspx
-                    if (!RoleManager.RoleExists("Admin"))
+                    if (!User.Identity.IsAuthenticated)
                     {
-                        //var str = RoleManager.Create(new IdentityRole("Admin"));
-                        var str = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+                        //Ansar J
+                        //create Admin role and adding user to admin role  
+                        //
+                        // used this link to implement roles http://geekswithblogs.net/MightyZot/archive/2014/12/28/implementing-rolemanager-in-asp.net-mvc-5.aspx
+                        if (!RoleManager.RoleExists("Admin"))
+                        {
+                            //var str = RoleManager.Create(new IdentityRole("Admin"));
+                            var str = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+                        }
+
+                        var roleresult = UserManager.AddToRole(user.Id, "Admin");
+                    
+                        //If user is not logged in then automaticaly logs in on registeration
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
-
-                    var roleresult = UserManager.AddToRole(user.Id, "Admin");
-                   
-
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
