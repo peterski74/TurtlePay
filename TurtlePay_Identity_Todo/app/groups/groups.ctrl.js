@@ -67,11 +67,12 @@ angular.module("groups", [])
 
 
     function getSucceeded(data) {
-        console.log(data);
+        //console.log(data);
         $scope.groupsList = data[0];
         $scope.TotalItems = $scope.groupsList.length;
         $scope.loading = false;
-
+        //logger.info("Fetched Todos " +
+               // (vm.includeArchived ? "including archived" : "excluding archived"));
 
     }
 

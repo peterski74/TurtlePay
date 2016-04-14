@@ -152,7 +152,7 @@ namespace TurtlePay_Identity_Todo.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(int? GroupId)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -170,8 +170,9 @@ namespace TurtlePay_Identity_Todo.Controllers
                 }
 
                 grps.Insert(0, grpItem);
+                
 
-                ViewBag.GroupsList = new SelectList(grps, "Id", "GroupName");
+                ViewBag.GroupsList = new SelectList(grps, "Id", "GroupName",GroupId);
             }
 
             return View();

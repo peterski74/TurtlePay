@@ -2,7 +2,7 @@
 
 
 <div ng-controller="GroupsCtrl as grpCtrl">
-    <form name="GroupForm"  ng-submit="GroupForm.$valid && addGroup(group)" novalidate>
+    <form name="GroupForm"  ng-submit="GroupForm.$valid && addGroup(group)" >
 
         <h3>Add Group</h3>
 
@@ -79,7 +79,9 @@
                         <h3 class="widget-user-username">{{group.GroupName}}</h3>
                         <h5 class="widget-user-desc">{{group.Description}}</h5>
                         <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
-                       <h4 class="widget-user-desc"><a href="/Account/Register" >Add Member</a></h4>
+                       
+                        
+
                     </div>
                     <div class="widget-user-image">
                         <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
@@ -109,7 +111,13 @@
                             </div><!-- /.col -->
                                                     
                         </div><!-- /.row -->
-                    </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <a href="/Account/Register?GroupId={{group.Id}}" class="btn btn-primary btn-sm active">Add Member</a>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+
+                     </div>
                     <!--<div class="box-footer box-comments">
                     <div class="box-comment">
                       <div class="comment-text">
