@@ -84,7 +84,9 @@ angular.module("groups", [])
         var newGroup = dataservice.createGroup(group); 
         save(true);
 
-        $scope.groupsList.push(group);
+        logger.log("id is", newGroup.Id);
+        group.Id = newGroup.Id
+        $scope.groupsList.push(group);//group
         $scope.TotalItems = $scope.groupsList.length;
 
         //$scope.$apply();
@@ -105,7 +107,7 @@ angular.module("groups", [])
         // Decided not to save; return resolved promise w/ no result
         return $q.when(false);
     }
-
+    
     function TotalItems() {
         var count = $scope.groupsList.length;
         if (count > 0) {

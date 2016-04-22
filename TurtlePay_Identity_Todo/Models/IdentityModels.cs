@@ -43,6 +43,7 @@ namespace TurtlePay_Identity_Todo.Models
         }
 
         public IQueryable<Groups> Groups { get; set; }
+        public IQueryable<vGroups> vGroups { get; set; }
 
         public static ApplicationDbContext Create()
         {

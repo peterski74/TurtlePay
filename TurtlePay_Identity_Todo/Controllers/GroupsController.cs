@@ -38,9 +38,9 @@ namespace TurtlePay_Identity_Todo.Controllers
             }
 
             [HttpGet]
-            public IQueryable<Groups> Groups()
+            public IQueryable<vGroups> Groups()
             {
-                return _contextProvider.Context.Groups;
+                return _contextProvider.Context.vGroups;
             }
 
         // ~/breeze/todos/Todos

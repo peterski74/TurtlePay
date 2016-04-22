@@ -20,6 +20,8 @@
             return new TurtlePayContext();
         }
         public DbSet<Groups> Groups { get; set; }
+        public DbSet<vGroups> vGroups { get; set; }
+
     }
 }
 
