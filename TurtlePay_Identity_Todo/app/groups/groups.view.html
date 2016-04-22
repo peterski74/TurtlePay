@@ -1,138 +1,161 @@
 ﻿
 
-<div class="col-sm-4">
-    <a href="/Account/Register?GroupId={{group.Id}}" class="btn btn-primary btn-sm active">Add Group</a>
+<div >
+    <a href="#" class="btn btn-primary btn-sm active">Add Group</a>
 </div><!-- /.col -->
 
-    <div ng-controller="GroupsCtrl as grpCtrl">
-        <div id="divAddGroup">
-            <form name="GroupForm" ng-submit="GroupForm.$valid && addGroup(group)">
+<div class="row">
+    <!--<div class="col-xs-4">
+        <h3>Meals Page: {{ currentPage }}</h3>
+    </div>-->
+    <div class="col-xs-4">
+        <label for="search">Search:</label>
+        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+    </div>
+    <div class="col-xs-4">
+        <label for="search">items per page:</label>
+        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+    </div>
+</div>
 
-                <h3>Add Group</h3>
+<div ng-controller="GroupsCtrl as grpCtrl">
+    <div id="divAddGroup">
+        <form name="GroupForm" ng-submit="GroupForm.$valid && addGroup(group)">
 
-                <p>Total Groups: {{TotalItems}}</p>
+            <h3>Add Group</h3>
 
-                <div class="form-group">
-                    <label for="GroupName">Group Name</label>
-                    <input type="text" class="form-control" id="GroupName" ng-model="group.GroupName" placeholder="Group Name" required />
+            <p>Total Groups: {{TotalItems}}</p>
 
-                </div>
+            <div class="form-group">
+                <label for="GroupName">Group Name</label>
+                <input type="text" class="form-control" id="GroupName" ng-model="group.GroupName" placeholder="Group Name" required />
 
-                <div class="form-group">
-                    <label for="Description">Description</label>
-                    <input type="text" class="form-control" id="Description" ng-model="group.Description" placeholder="Description" required />
-
-                </div>
-
-
-                <div class="form-group">
-                    <label for="JoinLastDay">Join Last Day</label>
-                    <input type="date" class="form-control" id="JoinLastDay" ng-model="group.JoinLastDay" placeholder="Join Last Day" required />
-
-                </div>
-
-                <div class="form-group">
-                    <label for="PayLastDay">Pay Last Day</label>
-                    <input type="date" class="form-control" id="PayLastDay" ng-model="group.PayLastDay" placeholder="Pay Last Day" required />
-
-                </div>
-
-                <div class="form-group">
-                    <label for="FirstDayOfActivity">First Day Of Activity</label>
-                    <input type="date" class="form-control" id="FirstDayOfActivity" ng-model="group.FirstDayOfActivity" placeholder="First Day Of Activity" required />
-
-                </div>
-
-                <div class="form-group">
-                    <label for="GroupMaxSize">Group Max Size</label>
-                    <input type="number" class="form-control" id="GroupMaxSize" ng-model="group.GroupMaxSize" placeholder="Group Max Size" required />
-
-                </div>
-
-
-
-                <div class="form-group">
-
-                    <input type="submit" value="Submit" />
-
-                    <!--ng-click="addGroup(group)"-->
-                    <!--<button class="btn" ng-click="addOrganisation()"><span></span>Add</button>-->
-                    <!--<input type="submit" ng-click="update(user)" value="Save" />-->
-
-                </div>
-            </form>
-          </div>
-          <div id="divGroups">
-            <div>
-
-                <div ng-repeat="group in groupsList">
-
-                    <div class="col-md-4">
-                        <div class="box box-widget widget-user">
-                            <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-aqua-active">
-                                <h3 class="widget-user-username">{{group.GroupName}}</h3>
-                                <h5 class="widget-user-desc">{{group.Description}}</h5>
-                                <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
-
-
-
-                            </div>
-                            <div class="widget-user-image">
-                                <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
-                            </div>
-                            <div class="box-footer">
-                                <div class="row">
-                                    <div class="col-sm-4 border-right">
-                                        <div class="description-block">
-                                            <h5 class="description-header">
-                                                <span title="Number attending">{{group.Joined}}</span><!--GroupMembersCount-->
-                                            </h5>
-                                            <span class="description-text">JOINED</span>
-                                        </div><!-- /.description-block -->
-                                    </div><!-- /.col -->
-
-                                    <div class="col-sm-4 border-right">
-                                        <div class="description-block">
-                                            <h5 class="description-header"><span title="Max Allowed">{{group.GroupMaxSize}}</span></h5>
-                                            <span class="description-text">MAX</span>
-                                        </div><!-- /.description-block -->
-                                    </div><!-- /.col -->
-                                    <div class="col-sm-4">
-                                        <div class="description-block">
-                                            <h5 class="description-header">{{group.GroupMembersPaid}}</h5>
-                                            <span class="description-text">PAID</span>
-                                        </div><!-- /.description-block -->
-                                    </div><!-- /.col -->
-
-                                </div><!-- /.row -->
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <a href="/Account/Register?GroupId={{group.Id}}" class="btn btn-primary btn-sm active">Add Member</a>
-                                    </div><!-- /.col -->
-                                </div><!-- /.row -->
-
-                            </div>
-                            <!--<div class="box-footer box-comments">
-                            <div class="box-comment">
-                              <div class="comment-text">
-                                <span class="username">
-                                  Event Date:
-                                </span>
-                                {{group.FirstDayOfActivity}}
-                              </div>
-                            </div>
-                          </div>
-                        </div>-->
-                        </div>
-                        </
-                    </div>
-
-
-
-
-
-                </div>
             </div>
-        </div>
-     </div>
+
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input type="text" class="form-control" id="Description" ng-model="group.Description" placeholder="Description" required />
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="JoinLastDay">Join Last Day</label>
+                <input type="date" class="form-control" id="JoinLastDay" ng-model="group.JoinLastDay" placeholder="Join Last Day" required />
+
+            </div>
+
+            <div class="form-group">
+                <label for="PayLastDay">Pay Last Day</label>
+                <input type="date" class="form-control" id="PayLastDay" ng-model="group.PayLastDay" placeholder="Pay Last Day" required />
+
+            </div>
+
+            <div class="form-group">
+                <label for="FirstDayOfActivity">First Day Of Activity</label>
+                <input type="date" class="form-control" id="FirstDayOfActivity" ng-model="group.FirstDayOfActivity" placeholder="First Day Of Activity" required />
+
+            </div>
+
+            <div class="form-group">
+                <label for="GroupMaxSize">Group Max Size</label>
+                <input type="number" class="form-control" id="GroupMaxSize" ng-model="group.GroupMaxSize" placeholder="Group Max Size" required />
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <input type="submit" value="Submit" />
+
+                <!--ng-click="addGroup(group)"-->
+                <!--<button class="btn" ng-click="addOrganisation()"><span></span>Add</button>-->
+                <!--<input type="submit" ng-click="update(user)" value="Save" />-->
+
+            </div>
+        </form>
+    </div>
+    <div id="divGroups">
+       
+            <div ng-repeat="group in groupsList">
+
+                <div class="col-md-4">
+                    <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-aqua-active">
+                            <h3 class="widget-user-username">{{group.GroupName}}</h3>
+                            <h5 class="widget-user-desc">{{group.Description}}</h5>
+                            <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
+
+
+
+                        </div>
+                        <div class="widget-user-image">
+                            <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
+                        </div>
+                        <div class="box-footer">
+                            <div class="row">
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header">
+                                            <span title="Number attending">{{group.Joined}}</span><!--GroupMembersCount-->
+                                        </h5>
+                                        <span class="description-text">JOINED</span>
+                                    </div><!-- /.description-block -->
+                                </div><!-- /.col -->
+
+                                <div class="col-sm-4 border-right">
+                                    <div class="description-block">
+                                        <h5 class="description-header"><span title="Max Allowed">{{group.GroupMaxSize}}</span></h5>
+                                        <span class="description-text">MAX</span>
+                                    </div><!-- /.description-block -->
+                                </div><!-- /.col -->
+                                <div class="col-sm-4">
+                                    <div class="description-block">
+                                        <h5 class="description-header">{{group.GroupMembersPaid}}</h5>
+                                        <span class="description-text">PAID</span>
+                                    </div><!-- /.description-block -->
+                                </div><!-- /.col -->
+
+                            </div><!-- /.row -->
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <a href="/Account/Register?GroupId={{group.Id}}" class="btn btn-primary btn-sm active">Add Member</a>
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+
+                        </div>
+                        
+                    </div>
+                    </
+                </div>
+
+
+                
+
+
+            </div>
+
+
+           
+    </div>
+
+    <paging class="small"
+            page="1"
+            page-size="5"
+            total="5"
+            show-prev-next="true"
+            show-first-last="true"
+            text-next-class="glyphicon glyphicon-chevron-right"
+            text-prev-class="glyphicon glyphicon-chevron-left"
+            text-first-class="glyphicon glyphicon-backward"
+            text-last-class="glyphicon glyphicon-forward">
+    </paging>  
+
+    <div data-pagination="" data-num-pages="numPages()"
+         data-current-page="currentPage" data-max-size="maxPageSize"
+         data-boundary-links="true">
+
+    </div>
+</div>

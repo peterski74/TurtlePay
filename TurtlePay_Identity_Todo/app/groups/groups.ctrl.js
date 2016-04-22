@@ -20,7 +20,38 @@ angular.module("groups", [])
     //var vm = this;
 
     $scope.groupsList = [];
+    $scope.groupsFileredList = [];
     $scope.TotalItems = 0;
+
+    //----------------pagination start--------------
+    $scope.currentPage = 1
+    $scope.numPerPage = 10
+    $scope.maxPageSize = 5;
+
+    //$scope.makeTodos = function () {
+    //    $scope.todos = [];
+    //    for (i = 1; i <= 1000; i++) {
+    //        $scope.todos.push({ text: 'todo ' + i, done: false });
+    //    }
+    //};
+    //$scope.makeTodos();
+
+    $scope.numPages = function () {
+        return Math.ceil($scope.groupsList.length / $scope.numPerPage);
+    };
+
+    $scope.$watch('currentPage + numPerPage', function () {
+        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+        , end = begin + $scope.numPerPage;
+
+        $scope.groupsList = $scope.groupsList.slice(begin, end);
+    });
+
+    //----------------pagination end--------------
+
+
+
+
 
     this.group = {};
 
