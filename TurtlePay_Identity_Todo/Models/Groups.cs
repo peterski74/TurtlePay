@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 namespace TurtlePay_Identity_Todo.Models
 {
     public class Groups
     {
+        [Key]
         public int Id { get; set; }                    
 
         [Required, StringLength(maximumLength: 200)]     // Validation rules

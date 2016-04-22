@@ -125,6 +125,8 @@
             function saveSucceeded(saveResult) {
                 logger.success("# of Todos saved = " + saveResult.entities.length);
                 logger.log(saveResult);
+                //logger.log(saveResult.entities[0]["Id"]);
+                return saveResult;
             }
 
             function saveFailed(error) {

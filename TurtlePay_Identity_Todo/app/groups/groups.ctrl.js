@@ -82,11 +82,12 @@ angular.module("groups", [])
 
        // alert('adding group')
         var newGroup = dataservice.createGroup(group); 
-        save(true);
+        var result = save(true);
 
-        logger.log("id is", newGroup.Id);
-        group.Id = newGroup.Id
-        $scope.groupsList.push(group);//group
+        //logger.log("id is", g.entities[0]["Id"]);//newGroup.Id
+        //group.Id = g.entities[0]["Id"];//newGroup.Id
+        $scope.groupsList.push(newGroup);//group
+        
         $scope.TotalItems = $scope.groupsList.length;
 
         //$scope.$apply();
@@ -102,7 +103,8 @@ angular.module("groups", [])
         // Save if have changes to save AND
         // if must save OR (save not suspended AND not editing a Todo)
         if (dataservice.hasChanges() && (force)) {
-            return dataservice.saveChanges();
+            var res = dataservice.saveChanges();
+            return res;
         }
         // Decided not to save; return resolved promise w/ no result
         return $q.when(false);
