@@ -4,21 +4,26 @@
     <a href="#" class="btn btn-primary btn-sm active">Add Group</a>
 </div><!-- /.col -->
 
-<div class="row">
-    <!--<div class="col-xs-4">
-        <h3>Meals Page: {{ currentPage }}</h3>
-    </div>-->
-    <div class="col-xs-4">
-        <label for="search">Search:</label>
-        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
-    </div>
-    <div class="col-xs-4">
-        <label for="search">items per page:</label>
-        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-    </div>
-</div>
+
 
 <div ng-controller="GroupsCtrl as grpCtrl">
+    
+    <div class="row">
+
+        <div class="col-xs-4">
+            <label for="search">Search:</label>
+            <input ng-model="search.query" id="search" class="form-control" placeholder="Filter text">
+        </div>
+        <div class="col-xs-4">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+        </div>
+    </div>
+
+
+
+
+
     <div id="divAddGroup">
         <form name="GroupForm" ng-submit="GroupForm.$valid && addGroup(group)">
 
@@ -78,8 +83,11 @@
     </div>
     <div id="divGroups">
        
-            <div ng-repeat="group in groupsList">
+        
 
+
+            <div ng-repeat="group in groupsList | filter:{GroupName: search.query }">  <!--| filter:{name: search.name, phone: search.phone}">-->
+               
                 <div class="col-md-4">
                     <div class="box box-widget widget-user">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
