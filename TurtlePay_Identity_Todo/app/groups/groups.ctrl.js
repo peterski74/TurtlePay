@@ -34,15 +34,15 @@ angular.module("groups", [])
     $scope.currentPage = 0;
     $scope.items = [];
     $scope.items = $scope.groupsList ;
-
+    $scope.totalPages;
     //for (var i=0; i<50; i++) {
     //    $scope.items.push({ id: i, name: "name "+ i, description: "description " + i });
     //}
 
     $scope.range = function() {
         var rangeSize ;//= 5
-        var totalPages = Math.ceil($scope.TotalItems / $scope.itemsPerPage);
-        rangeSize = totalPages;
+        $scope.totalPages = Math.ceil($scope.TotalItems / $scope.itemsPerPage);
+        rangeSize = $scope.totalPages;
 
 
 
@@ -74,14 +74,16 @@ angular.module("groups", [])
         return Math.ceil($scope.items.length/$scope.itemsPerPage)-1;
     };
 
-    $scope.nextPage = function() {
-        if ($scope.currentPage < $scope.pageCount()) {
+    $scope.nextPage = function () {
+        //$scope.pageCount()
+        if ($scope.currentPage < $scope.totalPages) {
             $scope.currentPage++;
         }
     };
 
     $scope.nextPageDisabled = function() {
-        return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+        return ($scope.currentPage+1) === $scope.totalPages ? "disabled" : "";
+        //$scope.pageCount()
     };
 
     $scope.setPage = function(n) {
