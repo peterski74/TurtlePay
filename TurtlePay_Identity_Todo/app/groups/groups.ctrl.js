@@ -40,9 +40,9 @@ angular.module("groups", [])
     //}
 
     $scope.range = function() {
-        var rangeSize ;//= 5
+        var rangeSize= 10 ;//
         $scope.totalPages = Math.ceil($scope.TotalItems / $scope.itemsPerPage);
-        rangeSize = $scope.totalPages;
+        //rangeSize = $scope.totalPages;
 
 
 
@@ -50,11 +50,11 @@ angular.module("groups", [])
         var start;
 
         start = $scope.currentPage;
-        //if ( start > $scope.pageCount()-rangeSize ) {
-        //    start = $scope.pageCount()-rangeSize+1;
-        //}
+        if (start > $scope.totalPages - rangeSize) {
+            start = $scope.totalPages - rangeSize ;
+        }
 
-        for (var i=start; i< rangeSize; i++) {
+        for (var i = start; i < start + rangeSize; i++) {
             ret.push(i);
         }
         return ret;
