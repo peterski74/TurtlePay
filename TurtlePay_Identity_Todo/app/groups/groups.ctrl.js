@@ -51,7 +51,7 @@ angular.module("groups", [])
 
         start = $scope.currentPage;
         if (start > $scope.totalPages - rangeSize) {
-            start = $scope.totalPages - rangeSize ;
+            start = $scope.totalPages - rangeSize  ;
         }
 
         for (var i = start; i < start + rangeSize; i++) {
@@ -71,7 +71,7 @@ angular.module("groups", [])
     };
 
     $scope.pageCount = function() {
-        return Math.ceil($scope.items.length/$scope.itemsPerPage)-1;
+        return Math.ceil($scope.TotalItems / $scope.itemsPerPage) - 1;
     };
 
     $scope.nextPage = function () {
@@ -82,14 +82,15 @@ angular.module("groups", [])
     };
 
     $scope.nextPageDisabled = function() {
-        return ($scope.currentPage+1) === $scope.totalPages ? "disabled" : "";
-        //$scope.pageCount()
+        return ($scope.currentPage ) === $scope.pageCount() ? "disabled" : "";
+        //$scope.pageCount()$scope.totalPages
     };
 
     $scope.setPage = function(n) {
         $scope.currentPage = n;
     };
 
+    
 
     //----------------pagination end--------------
 

@@ -91,32 +91,10 @@
                 </div>
                 <div class="col-xs-4">
                     <label for="search">items per page:</label>
-                    <select id="ddlPageSize" class="form-control" ng-change="" ng-model="pageSize">
-                        <option>
-                            5
-                        </option>
-                        <option>
-                            10
-                        </option>
-                        <option>
-                            15
-                        </option>
-                        <option>
-                            20
-                        </option>
-
-                        <option>
-                            25
-                        </option>
-                        <option>
-                            30
-                        </option>
-                        <option>
-                            35
-                        </option>
-                        <option>
-                            40
-                        </option>
+                    <select id="ddlPageSize" class="form-control" ng-change="setPage(1)" ng-model="itemsPerPage" >
+                        <option value="5" ng-selected="true" >5</option>
+                        <option value="15">15</option>
+                        <option value="25">25</option>
                     </select>
 
                 </div>
