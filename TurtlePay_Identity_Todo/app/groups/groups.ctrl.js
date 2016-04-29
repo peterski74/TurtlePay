@@ -26,126 +26,68 @@ angular.module("groups", [])
     $scope.TotalItems = 0;
 
     //----------------pagination start--------------
-   
+    //https://github.com/fdietz/recipes-with-angular-js-examples/tree/master/chapter8/recipe2
+    //https://github.com/fdietz/recipes-with-angular-js-examples/blob/master/chapter8/recipe2/index.html
+    //http://jsfiddle.net/api/post/library/pure/
 
-    //$scope.itemsPerPage = 5;
-    //$scope.currentPage = 0;
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 0;
+    $scope.items = [];
+    $scope.items = $scope.groupsList ;
 
-    //$scope.prevPage = function () {
-    //    if ($scope.currentPage > 0) {
-    //        $scope.currentPage--;
-    //    }
-    //};
-    //$scope.prevPageDisabled = function () {
-    //    return $scope.currentPage === 0 ? "disabled" : "";
-    //};
+    //for (var i=0; i<50; i++) {
+    //    $scope.items.push({ id: i, name: "name "+ i, description: "description " + i });
+    //}
 
-    //$scope.pageCount = function () {
-    //    return Math.ceil($scope.groupsList.length / $scope.itemsPerPage) - 1;
-    //};
-
-    //$scope.nextPage = function () {
-    //    if ($scope.currentPage < $scope.pageCount()) {
-    //        $scope.currentPage++;
-    //    }
-    //};
-
-    //$scope.nextPageDisabled = function () {
-    //    return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
-    //};
+    $scope.range = function() {
+        var rangeSize ;//= 5
+        var totalPages = Math.ceil($scope.TotalItems / $scope.itemsPerPage);
+        rangeSize = totalPages;
 
 
-    $scope.curPage = 0;
-    $scope.pageSize = 6;
-   
-    $scope.totalPages = $scope.groupsList.length / $scope.pageSize
 
-    $scope.numberOfPages = function () {
-        return Math.ceil($scope.groupsList.length / $scope.pageSize);
-    };
+        var ret = [];
+        var start;
 
-    $scope.pages = [];
-    
-     
+        start = $scope.currentPage;
+        //if ( start > $scope.pageCount()-rangeSize ) {
+        //    start = $scope.pageCount()-rangeSize+1;
+        //}
 
-    //$scope.pager = {};
-    ////$scope.setPage = setPage;
-
-    //function GetPager(totalItems, currentPage, pageSize) {
-    //    //, currentPage, pageSize
-    //    // default to first page
-    //    currentPage = 1; //currentPage ||
-
-    //    // default page size is 5
-    //    pageSize = 5; //pageSize ||
-
-    //    // calculate total pages
-    //    var totalPages = Math.ceil(totalItems / pageSize);
-
-    //    var startPage, endPage;
-    //    if (totalPages <= 10) {
-    //        // less than 10 total pages so show all
-    //        startPage = 1;
-    //        endPage = totalPages;
-    //    } else {
-    //        // more than 3 total pages so calculate start and end pages
-    //        if (currentPage <= 6) {
-    //            startPage = 1;
-    //            endPage = 10;
-    //        } else if (currentPage + 4 >= totalPages) {
-    //            startPage = totalPages - 9;
-    //            endPage = totalPages;
-    //        } else {
-    //            startPage = currentPage - 5;
-    //            endPage = currentPage + 4;
-    //        }
-    //    }
-
-    //    // calculate start and end item indexes
-    //    var startIndex = (currentPage - 1) * pageSize;
-    //    var endIndex = startIndex + pageSize;
-
-    //    // create an array of pages to ng-repeat in the pager control
-    //    var pages = rang(startPage, endPage);
-              
-    //    //range(startPage, endPage + 1);
-        
-
-    //    // return object with all pager properties required by the view
-    //    return {
-    //        totalItems: totalItems,
-    //        currentPage: currentPage,
-    //        pageSize: pageSize,
-    //        totalPages: totalPages,
-    //        startPage: startPage,
-    //        endPage: endPage,
-    //        startIndex: startIndex,
-    //        endIndex: endIndex,
-    //        pages: pages
-    //    }
-    //};
-    
-    function rang(startPage, endPage) {
-        endPage = endPage + 1
-       // var result = [];
-        for (var i = startPage; i != endPage; ++i) {
-            $scope.pages.push(i)
+        for (var i=start; i< rangeSize; i++) {
+            ret.push(i);
         }
-        //return result;
+        return ret;
     };
 
-    //    function setPage(page) {
-    //        if (page < 1 || page > $scope.pager.totalPages) {
-    //            return;
-    //        }
- 
-    //        // get pager object from service
-    //        $scope.pager = GetPager($scope.groupsList, page);
- 
-    //        // get current page of items
-    //        // vm.items = vm.dummyItems.slice(vm.pager.startIndex, vm.pager.endIndex);
-    //        $scope.groupsList = $scope.groupsList.slice(pager.startIndex, pager.endIndex);
-    //    };
+    $scope.prevPage = function() {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+
+    $scope.prevPageDisabled = function() {
+        return $scope.currentPage === 0 ? "disabled" : "";
+    };
+
+    $scope.pageCount = function() {
+        return Math.ceil($scope.items.length/$scope.itemsPerPage)-1;
+    };
+
+    $scope.nextPage = function() {
+        if ($scope.currentPage < $scope.pageCount()) {
+            $scope.currentPage++;
+        }
+    };
+
+    $scope.nextPageDisabled = function() {
+        return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+    };
+
+    $scope.setPage = function(n) {
+        $scope.currentPage = n;
+    };
+
 
     //----------------pagination end--------------
 
@@ -196,7 +138,7 @@ angular.module("groups", [])
             $scope.loading = false;
 
             //setPage(1);
-            rang(1, $scope.numberOfPages())
+           // rang(1, $scope.numberOfPages())
 
         }
     };
@@ -263,13 +205,21 @@ angular.module("groups", [])
 
 ])
     
-.filter('pagination', function () {
+//.filter('pagination', function () {
+//    return function (input, start) {
+//        start = +start;
+//        return input.slice(start);
+//    };
+//})
+//;
+.filter('offset', function () {
     return function (input, start) {
-        start = +start;
+        start = parseInt(start, 10);
         return input.slice(start);
     };
-})
-;
+});
+
+
 
 
 
