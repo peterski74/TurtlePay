@@ -8,17 +8,7 @@
 
 <div ng-controller="GroupsCtrl as grpCtrl">
     
-    <div class="row">
-
-        <div class="col-xs-4">
-            <label for="search">Search:</label>
-            <input ng-model="search.query" id="search" class="form-control" placeholder="Filter text">
-        </div>
-        <div class="col-xs-4">
-            <label for="search">items per page:</label>
-            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-        </div>
-    </div>
+   
 
 
 
@@ -83,10 +73,57 @@
     </div>
     <div id="divGroups">
        
-        
+            <div class="row">
 
+                <div class="col-xs-4">
+                    <label for="search">Search:</label>
+                    <input ng-model="search.query" id="search" class="form-control" placeholder="Filter text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ddlSort">Order by:</label>
+                    <select id="ddlSort" class="form-control" ng-model="sortBy">
+                        <option value="None">-- Select --</option>
 
-            <div ng-repeat="group in groupsList | filter:{GroupName: search.query }">  <!--| filter:{name: search.name, phone: search.phone}">-->
+                        <option value="GroupName">Group Name</option>
+                        <option value="FirstDayOfActivity">First Day Of Activity</option>
+
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <label for="search">items per page:</label>
+                    <select id="ddlPageSize" class="form-control" ng-change="" ng-model="pageSize">
+                        <option>
+                            5
+                        </option>
+                        <option>
+                            10
+                        </option>
+                        <option>
+                            15
+                        </option>
+                        <option>
+                            20
+                        </option>
+
+                        <option>
+                            25
+                        </option>
+                        <option>
+                            30
+                        </option>
+                        <option>
+                            35
+                        </option>
+                        <option>
+                            40
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+        <br />
+
+            <div ng-repeat="group in groupsList | filter:{GroupName: search.query } | orderBy:sortBy  | pagination: curPage * pageSize | limitTo: pageSize">  <!--| filter:{name: search.name, phone: search.phone}">     -->
                
                 <div class="col-md-4">
                     <div class="box box-widget widget-user">
@@ -146,24 +183,57 @@
             </div>
 
 
+
+        
+
            
     </div>
+    <!-- pager -->
+    <br />
+    <!--<ul ng-if="pager.pages.length" class="pagination">
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(1)">First</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === 1}">
+            <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+            <a ng-click="setPage(page)">{{page}}</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+            <a ng-click="setPage(pager.totalPages)">Last</a>
+        </li>
+    </ul>-->
 
-    <paging class="small"
-            page="1"
-            page-size="5"
-            total="5"
-            show-prev-next="true"
-            show-first-last="true"
-            text-next-class="glyphicon glyphicon-chevron-right"
-            text-prev-class="glyphicon glyphicon-chevron-left"
-            text-first-class="glyphicon glyphicon-backward"
-            text-last-class="glyphicon glyphicon-forward">
-    </paging>  
-
-    <div data-pagination="" data-num-pages="numPages()"
-         data-current-page="currentPage" data-max-size="maxPageSize"
-         data-boundary-links="true">
-
+    <!-- pager -->
+    <div class="pagination pagination-centered" ng-show="groupsList.length">
+        <ul class="pagination-controle pagination">
+            <li>
+                <button type="button" class="btn btn-primary" ng-disabled="curPage == 0"
+                        ng-click="curPage=curPage-1">
+                    &lt; PREV
+                </button>
+            </li>
+            <li>
+                <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+            </li>
+            <!--ng-class="{active:pager.currentPage === page}"-->
+            <li ng-repeat="page in pages" ng-class="{active:curPage === page}" >
+                <a ng-click="curPage = curPage+1">{{page}}</a>
+            </li>
+            <li>
+                <button type="button" class="btn btn-primary"
+                        ng-disabled="curPage >= groupsList.length/pageSize - 1"
+                        ng-click="curPage = curPage+1">
+                    NEXT &gt;
+                </button>
+            </li>
+        </ul>
     </div>
+    <!-- pager end -->
+    
 </div>
+
