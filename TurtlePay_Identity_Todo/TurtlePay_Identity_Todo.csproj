@@ -277,6 +277,7 @@
     <Content Include="app\dataservice.js" />
     <Content Include="app\groups\groups.ctrl.js" />
     <Content Include="app\groups\groups.view.html" />
+    <Content Include="app\groups\groupsList.view.html" />
     <Content Include="app\logger.js" />
     <Content Include="app\main.js" />
     <Content Include="app\members\dataservice.js" />

@@ -56,7 +56,20 @@
                     }]
                 }
             })
-
+            // GROUPS STATES AND NESTED VIEWS ========================================
+            .state('groupsList', {
+                url: '/groupsList',
+                templateUrl: 'app/groups/groupsList.view.html',
+                controller: 'GroupsCtrl as groups',
+                resolve: {
+                    contacts: ['$ocLazyLoad', function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            name: 'groups',
+                            files: ['app/groups/groups.ctrl.js']
+                        });
+                    }]
+                }
+            })
         // MEMBERS STATES AND NESTED VIEWS ========================================
             .state('members', {
                 url: '/members',

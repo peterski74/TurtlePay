@@ -12,36 +12,40 @@ Date 19/02/2016
  *     logger - the application's logging facility
  */
 
-//angular.module('app')
-
 
 angular.module("groups", [])
 
 .controller('GroupsCtrl', ['$q', '$scope', '$http', '$timeout', 'dataservice', 'logger', function ($q, $scope, $http, $timeout, dataservice, logger) {
     // The controller's API to which the view binds
-    //var vm = this;
-
+   
     $scope.groupsList = [];
-    //$scope.groupsFileredList = [];
+    $scope.groupsFilteredList = [];
     $scope.TotalItems = 0;
+    $scope.itemsPerPage = 5;
+    $scope.currentPage = 0;
+    $scope.totalPages;
+
+    this.group = {};
+
+    getGroups();
 
     //----------------pagination start--------------
     //https://github.com/fdietz/recipes-with-angular-js-examples/tree/master/chapter8/recipe2
     //https://github.com/fdietz/recipes-with-angular-js-examples/blob/master/chapter8/recipe2/index.html
     //http://jsfiddle.net/api/post/library/pure/
+       
 
-    $scope.itemsPerPage = 5;
-    $scope.currentPage = 0;
-    $scope.items = [];
-    $scope.items = $scope.groupsList ;
-    $scope.totalPages;
-    //for (var i=0; i<50; i++) {
-    //    $scope.items.push({ id: i, name: "name "+ i, description: "description " + i });
-    //}
+    $scope.filter = function () {
+        window.setTimeout(function () { //wait for 'filtered' to be changed
+            /* change pagination with $scope.filtered */
+            $scope.totalPages = Math.ceil($scope.groupsFilteredList.length / $scope.itemsPerPage);
+        }, 10);
+        $scope.range();
+    };
 
-    $scope.range = function() {
-        var rangeSize= 10 ;//
-        $scope.totalPages = Math.ceil($scope.TotalItems / $scope.itemsPerPage);
+    $scope.range = function () {
+        var rangeSize = $scope.itemsPerPage; //10 ;//
+        $scope.totalPages = Math.ceil($scope.groupsFilteredList.length / $scope.itemsPerPage);
         //rangeSize = $scope.totalPages;
 
 
@@ -49,9 +53,10 @@ angular.module("groups", [])
         var ret = [];
         var start;
 
+
         start = $scope.currentPage;
         if (start > $scope.totalPages - rangeSize) {
-            start = $scope.totalPages - rangeSize  ;
+            start = $scope.totalPages - rangeSize;
         }
 
         for (var i = start; i < start + rangeSize; i++) {
@@ -60,47 +65,57 @@ angular.module("groups", [])
         return ret;
     };
 
-    $scope.prevPage = function() {
+    $scope.firstPage = function () {
+        //if ($scope.currentPage > 0) {
+            $scope.currentPage=0;
+        //}
+    };
+    $scope.prevPage = function () {
         if ($scope.currentPage > 0) {
             $scope.currentPage--;
         }
     };
 
-    $scope.prevPageDisabled = function() {
+
+    $scope.prevPageDisabled = function () {
         return $scope.currentPage === 0 ? "disabled" : "";
     };
 
-    $scope.pageCount = function() {
-        return Math.ceil($scope.TotalItems / $scope.itemsPerPage) - 1;
+    $scope.pageCount = function () {
+        //return Math.ceil($scope.TotalItems / $scope.itemsPerPage) - 1;
+        return Math.ceil($scope.groupsFilteredList.length / $scope.itemsPerPage);
     };
 
     $scope.nextPage = function () {
         //$scope.pageCount()
-        if ($scope.currentPage < $scope.totalPages) {
+        if ($scope.currentPage < $scope.pageCount()) {
             $scope.currentPage++;
         }
     };
+    
+    $scope.lastPage = function () {
+        //$scope.pageCount()
+        
+        $scope.currentPage = $scope.pageCount();
+        
+    };
 
-    $scope.nextPageDisabled = function() {
-        return ($scope.currentPage ) === $scope.pageCount() ? "disabled" : "";
+    $scope.nextPageDisabled = function () {
+        return $scope.currentPage === ($scope.pageCount() -1) ? "disabled" : "";
+               
+
+        //return ($scope.currentPage) === ($scope.pageCount() - 1) ? "disabled" : "";
         //$scope.pageCount()$scope.totalPages
     };
 
-    $scope.setPage = function(n) {
+    $scope.setPage = function (n) {
         $scope.currentPage = n;
     };
 
-    
+
 
     //----------------pagination end--------------
 
-
-
-
-
-    this.group = {};
-
-    getGroups();
 
     
 
@@ -137,6 +152,7 @@ angular.module("groups", [])
             //(vm.includeArchived ? "including archived" : "excluding archived"));
 
             $scope.groupsList = data.results; // data;
+            $scope.groupsFilteredList = data.results;
             $scope.TotalItems = $scope.groupsList.length;
             $scope.loading = false;
 

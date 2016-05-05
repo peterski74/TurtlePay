@@ -1,20 +1,8 @@
 ﻿
-
-<div >
-    <a href="#" class="btn btn-primary btn-sm active">Add Group</a>
-</div><!-- /.col -->
-
-
-
 <div ng-controller="GroupsCtrl as grpCtrl">
     
-   
 
-
-
-
-
-    <div id="divAddGroup">
+    <div id="divAddGroup" >
         <form name="GroupForm" ng-submit="GroupForm.$valid && addGroup(group)">
 
             <h3>Add Group</h3>
@@ -71,119 +59,6 @@
             </div>
         </form>
     </div>
-    <div id="divGroups">
-       
-            <div class="row">
-
-                <div class="col-xs-4">
-                    <label for="search">Search:</label>
-                    <input ng-model="search.query" id="search" class="form-control" placeholder="Filter text">
-                </div>
-                <div class="col-xs-4">
-                    <label for="ddlSort">Order by:</label>
-                    <select id="ddlSort" class="form-control" ng-model="sortBy">
-                        <option value="None">-- Select --</option>
-
-                        <option value="GroupName">Group Name</option>
-                        <option value="FirstDayOfActivity">First Day Of Activity</option>
-
-                    </select>
-                </div>
-                <div class="col-xs-4">
-                    <label for="search">items per page:</label>
-                    <select id="ddlPageSize" class="form-control" ng-change="setPage(1)" ng-model="itemsPerPage" >
-                        <option value="5" ng-selected="true" >5</option>
-                        <option value="15">15</option>
-                        <option value="25">25</option>
-                    </select>
-
-                </div>
-            </div>
-        <br />
-
-            <div ng-repeat="group in groupsList | filter:{GroupName: search.query } | orderBy:sortBy  | offset: currentPage*itemsPerPage | limitTo: itemsPerPage ">  <!--| filter:{name: search.name, phone: search.phone}">     -->
-               
-                <div class="col-md-4">
-                    <div class="box box-widget widget-user">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-aqua-active">
-                            <h3 class="widget-user-username">{{group.GroupName}}</h3>
-                            <h5 class="widget-user-desc">{{group.Description}}</h5>
-                            <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
-
-
-
-                        </div>
-                        <div class="widget-user-image">
-                            <!--<img class="img-circle" src="../dist/img/user1-128x128.jpg" alt="User Avatar">-->
-                        </div>
-                        <div class="box-footer">
-                            <div class="row">
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header">
-                                            <span title="Number attending">{{group.Joined}}</span><!--GroupMembersCount-->
-                                        </h5>
-                                        <span class="description-text">JOINED</span>
-                                    </div><!-- /.description-block -->
-                                </div><!-- /.col -->
-
-                                <div class="col-sm-4 border-right">
-                                    <div class="description-block">
-                                        <h5 class="description-header"><span title="Max Allowed">{{group.GroupMaxSize}}</span></h5>
-                                        <span class="description-text">MAX</span>
-                                    </div><!-- /.description-block -->
-                                </div><!-- /.col -->
-                                <div class="col-sm-4">
-                                    <div class="description-block">
-                                        <h5 class="description-header">{{group.GroupMembersPaid}}</h5>
-                                        <span class="description-text">PAID</span>
-                                    </div><!-- /.description-block -->
-                                </div><!-- /.col -->
-
-                            </div><!-- /.row -->
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <a href="/Account/Register?GroupId={{group.Id}}" class="btn btn-primary btn-sm active">Add Member</a>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-
-                        </div>
-                        
-                    </div>
-                    </
-                </div>
-
-
-                
-
-
-            </div>
-
-
-
         
-
-           
-    </div>
-    <!-- pager -->
-        <br />
-        <!--<div class="pagination">-->
-            <ul class="pagination">
-                <li ng-class="prevPageDisabled()">
-                    <a href="" ng-click="prevPage()">« Prev</a>
-                </li>
-                <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-                    <a href="">{{n+1}}</a>
-                </li>
-                <li ng-class="nextPageDisabled()">
-                    <a href="" ng-click="nextPage()">Next »</a>
-                </li>
-            </ul >
-        <!--</div>-->
-
-    
-    <!-- pager end -->
-    
 </div>
 
