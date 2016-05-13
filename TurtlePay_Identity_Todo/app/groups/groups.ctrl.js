@@ -12,12 +12,13 @@ Date 19/02/2016
  *     logger - the application's logging facility
  */
 
+'use strict';
 
 angular.module("groups", [])
 
-.controller('GroupsCtrl', ['$q', '$scope', '$http', '$timeout', 'dataservice', 'logger', function ($q, $scope, $http, $timeout, dataservice, logger) {
+.controller('GroupsCtrl', ['$q', '$scope', '$http', '$timeout', 'dataservice', 'logger', 'appSettings', function ($q, $scope, $http, $timeout, dataservice, logger, appSettings) {
     // The controller's API to which the view binds
-   
+    $scope.dateFormat = appSettings.dateFormat;
     $scope.groupsList = [];
     $scope.groupsFilteredList = [];
     $scope.TotalItems = 0;

@@ -1,8 +1,16 @@
 ﻿/* main: startup script creates the 'app' module */
 (function() {
-
+    'use strict';
     // app module depends on "Breeze Angular Service"
     angular.module('app', ['breeze.angular', 'ui.router', 'oc.lazyLoad'])
+
+    //app Settings
+    .constant('appSettings', {
+        language: 'en',
+        dateFormat: 'dd/MM/yyyy'
+        
+        })
+   
 
     // app Router
     .config(function ($stateProvider, $urlRouterProvider) {

@@ -90,9 +90,9 @@
                     <div class="widget-user-header bg-aqua-active">
                         <h3 class="widget-user-username">{{group.GroupName}}</h3>
                         <h5 class="widget-user-desc">{{group.Description}}</h5>
-                        <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:'medium'}}
-
-
+                        <strong>Event Date:</strong> {{group.FirstDayOfActivity | date:dateFormat}}
+                        
+                        
 
                     </div>
                     <div class="widget-user-image">
@@ -139,38 +139,40 @@
 
         <!-- pager -->
         <br />
-        <div>
-            <ul class="pagination">
-                <li ng-class="prevPageDisabled()">
-                    <a href="" aria-label="First" ng-click="firstPage()">First </a>
+        
+            <div>
+                
+                    <ul class="pagination">
+                        <li ng-class="prevPageDisabled()">
+                            <a href="" aria-label="First" ng-click="firstPage()">First </a>
 
-                </li>
-                <li ng-class="prevPageDisabled()">
-                    <a href="" ng-click="prevPage()">
-                        <span aria-hidden="true">&laquo;</span>
-                        Prev
-                    </a>
-                </li>
-                <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-                    <a href="">{{n+1}}</a>
-                </li>
-                <li ng-class="nextPageDisabled()">
-                    <a href="" ng-click="nextPage()">
-                        Next
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                        </li>
+                        <li ng-class="prevPageDisabled()">
+                            <a href="" ng-click="prevPage()">
+                                <span aria-hidden="true">&laquo;</span>
+                                Prev
+                            </a>
+                        </li>
+                        <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                            <a href="">{{n+1}}</a>
+                        </li>
+                        <li ng-class="nextPageDisabled()">
+                            <a href="" ng-click="nextPage()">
+                                Next
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
 
-                <li ng-class="{disabled:currentPage === 1}">
-                    <a href="" aria-label="Last" ng-click="lastPage()">
-                        Last
-                    </a>
-                </li>
+                        <li ng-class="{disabled:currentPage === 1}">
+                            <a href="" aria-label="Last" ng-click="lastPage()">
+                                Last
+                            </a>
+                        </li>
 
-            </ul>
-        </div>
+                    </ul>
+                
 
-
+          </div>
         <!-- pager end -->
 
     </div>
